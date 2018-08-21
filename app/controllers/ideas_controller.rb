@@ -1,51 +1,33 @@
-class IdeasController < ApplicationController
-  before_action :set_idea, only: [:show, :update, :destroy]
-
-  # GET /ideas
-  def index
-    @ideas = Idea.all
-
-    render json: @ideas
-  end
-
-  # GET /ideas/1
-  def show
-    render json: @idea
-  end
-
-  # POST /ideas
-  def create
-    @idea = Idea.new(idea_params)
-
-    if @idea.save
-      render json: @idea, status: :created, location: @idea
-    else
-      render json: @idea.errors, status: :unprocessable_entity
+  class IdeasController < ApplicationController
+    def index
+      @ideas = Idea.order("created_at DESC")
+      render json: @ideas
     end
-  end
 
-  # PATCH/PUT /ideas/1
-  def update
-    if @idea.update(idea_params)
+    def create
+      @idea = Idea.create(idea_params)
       render json: @idea
-    else
-      render json: @idea.errors, status: :unprocessable_entity
     end
-  end
 
-  # DELETE /ideas/1
-  def destroy
-    @idea.destroy
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_idea
+    def update
       @idea = Idea.find(params[:id])
+      @idea.update_attributes(idea_params)
+      render json: @idea
     end
 
-    # Only allow a trusted parameter "white list" through.
+    def destroy
+      @idea = Idea.find(params[:id])
+      if @idea.destroy
+        head :no_content, status: :ok
+      else
+        render json: @idea.errors, status: :unprocessable_entity
+      end
+    end
+
+    private
+
     def idea_params
       params.require(:idea).permit(:title, :body)
     end
-end
+	end
+
