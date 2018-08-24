@@ -13,19 +13,27 @@
 ideas = Idea.create(
 	[
 		{
-			title: "A new cake recipe", 
-			body: "Made of chocolate"
+			title: "Write a book", 
+			body: "of thoughts"
 		},
 		{
 			title: "A twitter client idea", 
-			body: "Only for replying to mentions and DMs"
+			body: "like we did in class"
 		},
 		{
-			title: "A novel set in Italy", 
-			body: "A mafia crime drama starring Berlusconi"
+			title: "A new tattoo", 
+			body: "Thich Nhat Hahn calligraphy"
 		},
 		{
 			title: "Card game design", 
-			body: "Like Uno but involves drinking"
+			body: "Like Magic but more"
+		},
+		{
+			title: "Recreate Mint Tin Apocalypse in browser", 
+			body: "Make it mobile"
+		},
+		{
+			title: "start a Cult", 
+			body: "Everyone likes you, and there is Kool-Aid"
 		}
   ])

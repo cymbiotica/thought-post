@@ -1,13 +1,27 @@
-  class IdeasController < ApplicationController
+  class IdeasController < OpenReadController
+    # before_action :set_idea, only: [:show, :update, :destroy]
+    
     def index
-      @ideas = Idea.order("created_at DESC")
+      # @ideas = Idea.order("created_at DESC")
+      @ideas = Idea.all
       render json: @ideas
     end
 
-    def create
-      @idea = Idea.create(idea_params)
-      render json: @idea
+    def show
+      render json: Idea.find(params[:id])
     end
+
+    def create
+      # @idea = Idea.create(idea_params)
+      # render json: @idea
+
+      @idea = current_user.ideas.build(idea_params)
+      if @idea.save
+        render json: @idea, status: :created, location: @idea
+      else
+        render json: @ideas.errors, status: :unprocessable_entity
+      end
+    end 
 
     def update
       @idea = Idea.find(params[:id])
